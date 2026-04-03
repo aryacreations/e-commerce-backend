@@ -358,20 +358,24 @@ python complete_api_test.py
 
 ### Docker Deployment
 
-```dockerfile
-FROM python:3.9-slim
+The project includes a complete Docker setup, which allows you to run both the API and a local MongoDB instance seamlessly using Docker Compose.
 
-WORKDIR /app
+1. **Verify Prerequisites**
+   Ensure you have Docker and Docker Compose installed on your system.
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+2. **Run the application**
+   ```bash
+   docker-compose up --build
+   ```
+   This command will automatically:
+   - Build the FastAPI backend image.
+   - Start a local MongoDB instance.
+   - Start the application on port `8000`.
 
-COPY . .
-
-RUN python -m prisma generate
-
-CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
-```
+3. **Stop the application**
+   ```bash
+   docker-compose down
+   ```
 
 ### Production Checklist
 
