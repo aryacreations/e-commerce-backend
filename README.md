@@ -1,95 +1,41 @@
-# E-Commerce Backend System
+# 🛒 E-Commerce Backend API
 
-A scalable backend system for a mini e-commerce platform built with Python, FastAPI, MongoDB, and Prisma.
+[![Python](https://img.shields.io/badge/Python-3.9+-blue.svg)](https://www.python.org/downloads/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-0.109.0-green.svg)](https://fastapi.tiangolo.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-brightgreen.svg)](https://www.mongodb.com/cloud/atlas)
+[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-## Features
+A production-ready, scalable RESTful API for an e-commerce platform built with modern Python technologies. Features include user authentication, product management, shopping cart, and order processing with clean architecture principles.
 
-- **Authentication System**: JWT-based user registration and login with password hashing
-- **Product Management**: CRUD operations for products with search, filter, and sort capabilities
-- **Shopping Cart**: User-specific cart management with persistent storage
-- **Order Processing**: Checkout flow with order history and item snapshots
-- **Clean Architecture**: Layered design with separation of concerns
-- **API Documentation**: Auto-generated Swagger UI documentation
+## 🌟 Key Features
 
-## Tech Stack
+- **🔐 JWT Authentication** - Secure user registration and login with bcrypt password hashing
+- **📦 Product Management** - Full CRUD operations with search, filter, and sort capabilities
+- **🛒 Shopping Cart** - Persistent cart management with real-time updates
+- **📋 Order Processing** - Complete checkout flow with order history and product snapshots
+- **🏗️ Clean Architecture** - Layered design with separation of concerns (API → Service → Repository)
+- **📚 Auto-Generated Docs** - Interactive Swagger UI and ReDoc documentation
+- **⚡ Async Operations** - Non-blocking I/O for high performance
+- **🔒 Security First** - Input validation, error handling, and secure password storage
 
-- **Language**: Python 3.9+
-- **Framework**: FastAPI
-- **Database**: MongoDB
-- **ORM**: Prisma (prisma-client-py)
-- **Authentication**: JWT (python-jose)
-- **Password Hashing**: bcrypt (passlib)
-- **Testing**: pytest
-
-## Project Structure
-
-```
-e-commerce-backend/
-├── src/
-│   ├── api/
-│   │   ├── deps.py              # Dependency injection
-│   │   └── v1/
-│   │       ├── auth.py          # Authentication endpoints
-│   │       ├── products.py      # Product endpoints
-│   │       ├── cart.py          # Cart endpoints
-│   │       └── orders.py        # Order endpoints
-│   ├── core/
-│   │   ├── config.py            # Settings and configuration
-│   │   ├── security.py          # Password hashing, JWT
-│   │   └── database.py          # Database connection
-│   ├── schemas/
-│   │   ├── user.py              # User schemas
-│   │   ├── product.py           # Product schemas
-│   │   ├── cart.py              # Cart schemas
-│   │   ├── order.py             # Order schemas
-│   │   └── token.py             # Token schemas
-│   ├── services/
-│   │   ├── auth_service.py      # Authentication logic
-│   │   ├── product_service.py   # Product business logic
-│   │   ├── cart_service.py      # Cart business logic
-│   │   └── order_service.py     # Order business logic
-│   ├── repositories/
-│   │   ├── user_repository.py
-│   │   ├── product_repository.py
-│   │   ├── cart_repository.py
-│   │   └── order_repository.py
-│   ├── middlewares/
-│   │   └── error_handler.py     # Global error handling
-│   ├── utils/
-│   │   └── pagination.py        # Pagination utilities
-│   └── main.py                  # Application entry point
-├── prisma/
-│   └── schema.prisma            # Prisma schema definition
-├── tests/
-│   ├── conftest.py
-│   ├── test_auth.py
-│   ├── test_products.py
-│   ├── test_cart.py
-│   └── test_orders.py
-├── .env                         # Environment variables
-├── .env.example                 # Example environment variables
-├── requirements.txt             # Python dependencies
-└── README.md
-```
-
-## Setup Instructions
+## 🚀 Quick Start
 
 ### Prerequisites
 
 - Python 3.9 or higher
-- MongoDB Atlas account or local MongoDB instance
-- pip (Python package manager)
+- MongoDB Atlas account (or local MongoDB instance)
+- pip package manager
 
 ### Installation
 
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/aryacreations/e-commerce-backend.git
+   git clone https://github.com/yourusername/e-commerce-backend.git
    cd e-commerce-backend
    ```
 
-2. **Create and activate virtual environment**
+2. **Create virtual environment**
 
    ```bash
    # Windows
@@ -118,247 +64,260 @@ e-commerce-backend/
    SECRET_KEY=your-secret-key-here
    ALGORITHM=HS256
    ACCESS_TOKEN_EXPIRE_MINUTES=30
-   DEFAULT_PAGE_SIZE=20
-   MAX_PAGE_SIZE=100
    ```
 
 5. **Generate Prisma client**
 
    ```bash
-   prisma generate
+   python -m prisma generate
    ```
 
-6. **Run database migrations** (if needed)
+6. **Run the application**
    ```bash
-   prisma db push
+   uvicorn src.main:app --reload
    ```
-
-### Running the Application
-
-```bash
-uvicorn src.main:app --reload
-```
 
 The API will be available at `http://localhost:8000`
 
-- **API Documentation**: http://localhost:8000/docs
-- **Alternative Docs**: http://localhost:8000/redoc
-- **Health Check**: http://localhost:8000/health
+- **📖 API Documentation**: http://localhost:8000/docs
+- **📄 Alternative Docs**: http://localhost:8000/redoc
+- **💚 Health Check**: http://localhost:8000/health
 
-## Environment Variables
+## 🏗️ Architecture
 
-| Variable                      | Description               | Default            |
-| ----------------------------- | ------------------------- | ------------------ |
-| `APP_NAME`                    | Application name          | E-Commerce Backend |
-| `DEBUG`                       | Debug mode                | True               |
-| `DATABASE_URL`                | MongoDB connection string | Required           |
-| `SECRET_KEY`                  | JWT secret key            | Required           |
-| `ALGORITHM`                   | JWT algorithm             | HS256              |
-| `ACCESS_TOKEN_EXPIRE_MINUTES` | Token expiration time     | 30                 |
-| `DEFAULT_PAGE_SIZE`           | Default pagination size   | 20                 |
-| `MAX_PAGE_SIZE`               | Maximum pagination size   | 100                |
+This project follows **Clean Architecture** principles with clear separation of concerns:
 
-## API Documentation
+```
+src/
+├── api/                    # API Layer (Routes & Endpoints)
+│   ├── deps.py            # Dependency injection
+│   └── v1/                # API version 1
+│       ├── auth.py        # Authentication endpoints
+│       ├── products.py    # Product endpoints
+│       ├── cart.py        # Cart endpoints
+│       └── orders.py      # Order endpoints
+├── core/                   # Core Layer (Configuration & Infrastructure)
+│   ├── config.py          # Application settings
+│   ├── security.py        # Security utilities (JWT, bcrypt)
+│   └── database.py        # Database connection
+├── schemas/                # Schema Layer (Data Validation)
+│   ├── user.py            # User schemas
+│   ├── product.py         # Product schemas
+│   ├── cart.py            # Cart schemas
+│   ├── order.py           # Order schemas
+│   └── token.py           # Token schemas
+├── services/               # Service Layer (Business Logic)
+│   ├── auth_service.py    # Authentication logic
+│   ├── product_service.py # Product business logic
+│   ├── cart_service.py    # Cart business logic
+│   └── order_service.py   # Order business logic
+├── repositories/           # Repository Layer (Data Access)
+│   ├── user_repository.py
+│   ├── product_repository.py
+│   ├── cart_repository.py
+│   └── order_repository.py
+├── middlewares/            # Middleware Layer
+│   └── error_handler.py   # Global error handling
+├── utils/                  # Utilities
+│   └── pagination.py      # Pagination helpers
+└── main.py                # Application entry point
+```
 
-### Authentication Endpoints
+### Architecture Benefits
 
-#### Register User
+- **Testability**: Each layer can be tested independently
+- **Maintainability**: Changes in one layer don't affect others
+- **Scalability**: Easy to add new features or modify existing ones
+- **Flexibility**: Can swap implementations (e.g., change database) without affecting business logic
 
-```http
-POST /api/v1/auth/register
-Content-Type: application/json
+## 📡 API Endpoints
 
+### 🔐 Authentication
+
+| Method | Endpoint                | Description       | Auth Required |
+| ------ | ----------------------- | ----------------- | ------------- |
+| POST   | `/api/v1/auth/register` | Register new user | ❌            |
+| POST   | `/api/v1/auth/login`    | Login user        | ❌            |
+
+**Example: Register User**
+
+```bash
+curl -X POST "http://localhost:8000/api/v1/auth/register" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "user@example.com",
+    "password": "secure123"
+  }'
+```
+
+**Response:**
+
+```json
 {
+  "id": "507f1f77bcf86cd799439011",
   "email": "user@example.com",
-  "password": "password123"
+  "createdAt": "2024-01-01T00:00:00Z"
 }
 ```
 
-#### Login
+### 📦 Products
 
-```http
-POST /api/v1/auth/login
-Content-Type: application/json
+| Method | Endpoint                | Description                        | Auth Required |
+| ------ | ----------------------- | ---------------------------------- | ------------- |
+| GET    | `/api/v1/products`      | Get all products (with pagination) | ❌            |
+| GET    | `/api/v1/products/{id}` | Get single product                 | ❌            |
+| POST   | `/api/v1/products`      | Create product                     | ✅            |
+| PUT    | `/api/v1/products/{id}` | Update product                     | ✅            |
+| DELETE | `/api/v1/products/{id}` | Delete product                     | ✅            |
 
-{
-  "email": "user@example.com",
-  "password": "password123"
-}
+**Query Parameters for GET /products:**
 
-Response:
-{
-  "access_token": "eyJ0eXAiOiJKV1QiLCJhbGc...",
-  "token_type": "bearer"
-}
+- `page` - Page number (default: 1)
+- `page_size` - Items per page (default: 20, max: 100)
+- `search` - Search by title or description
+- `category` - Filter by category
+- `sort` - Sort by price (`price_asc` or `price_desc`)
+
+**Example: Get Products**
+
+```bash
+curl "http://localhost:8000/api/v1/products?page=1&page_size=10&category=Electronics&sort=price_asc"
 ```
 
-### Product Endpoints
+**Example: Create Product**
 
-#### Create Product (Protected)
-
-```http
-POST /api/v1/products
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "title": "Product Name",
-  "description": "Product description",
-  "price": 99.99,
-  "category": "Electronics",
-  "imageUrl": "https://example.com/image.jpg"
-}
+```bash
+curl -X POST "http://localhost:8000/api/v1/products" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "iPhone 15 Pro",
+    "description": "Latest Apple smartphone",
+    "price": 999.99,
+    "category": "Electronics",
+    "imageUrl": "https://example.com/iphone.jpg"
+  }'
 ```
 
-#### Get All Products
+### 🛒 Shopping Cart
 
-```http
-GET /api/v1/products?page=1&page_size=20&search=laptop&category=Electronics&sort=price_asc
+| Method | Endpoint                  | Description               | Auth Required |
+| ------ | ------------------------- | ------------------------- | ------------- |
+| GET    | `/api/v1/cart`            | Get user cart             | ✅            |
+| POST   | `/api/v1/cart/items`      | Add item to cart          | ✅            |
+| PUT    | `/api/v1/cart/items/{id}` | Update cart item quantity | ✅            |
+| DELETE | `/api/v1/cart/items/{id}` | Remove item from cart     | ✅            |
+
+**Example: Add to Cart**
+
+```bash
+curl -X POST "http://localhost:8000/api/v1/cart/items" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "productId": "507f1f77bcf86cd799439011",
+    "quantity": 2
+  }'
 ```
 
-#### Get Single Product
+### 📋 Orders
 
-```http
-GET /api/v1/products/{product_id}
+| Method | Endpoint              | Description            | Auth Required |
+| ------ | --------------------- | ---------------------- | ------------- |
+| GET    | `/api/v1/orders`      | Get order history      | ✅            |
+| GET    | `/api/v1/orders/{id}` | Get specific order     | ✅            |
+| POST   | `/api/v1/orders`      | Create order from cart | ✅            |
+
+**Example: Create Order**
+
+```bash
+curl -X POST "http://localhost:8000/api/v1/orders" \
+  -H "Authorization: Bearer YOUR_JWT_TOKEN"
 ```
 
-#### Update Product (Protected)
-
-```http
-PUT /api/v1/products/{product_id}
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "title": "Updated Title",
-  "price": 89.99
-}
-```
-
-#### Delete Product (Protected)
-
-```http
-DELETE /api/v1/products/{product_id}
-Authorization: Bearer <token>
-```
-
-### Cart Endpoints
-
-#### Add to Cart (Protected)
-
-```http
-POST /api/v1/cart/items
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "productId": "product_id_here",
-  "quantity": 2
-}
-```
-
-#### Get Cart (Protected)
-
-```http
-GET /api/v1/cart
-Authorization: Bearer <token>
-```
-
-#### Update Cart Item (Protected)
-
-```http
-PUT /api/v1/cart/items/{item_id}
-Authorization: Bearer <token>
-Content-Type: application/json
-
-{
-  "quantity": 5
-}
-```
-
-#### Remove from Cart (Protected)
-
-```http
-DELETE /api/v1/cart/items/{item_id}
-Authorization: Bearer <token>
-```
-
-### Order Endpoints
-
-#### Create Order (Protected)
-
-```http
-POST /api/v1/orders
-Authorization: Bearer <token>
-```
-
-#### Get Order History (Protected)
-
-```http
-GET /api/v1/orders
-Authorization: Bearer <token>
-```
-
-#### Get Specific Order (Protected)
-
-```http
-GET /api/v1/orders/{order_id}
-Authorization: Bearer <token>
-```
-
-## Database Schema
+## 🗄️ Database Schema
 
 ### User
 
-- `id`: ObjectId (Primary Key)
-- `email`: String (Unique)
-- `hashedPassword`: String
-- `createdAt`: DateTime
+```prisma
+model User {
+  id              String   @id @default(auto()) @map("_id") @db.ObjectId
+  email           String   @unique
+  hashedPassword  String
+  createdAt       DateTime @default(now())
+  cart            Cart?
+  orders          Order[]
+}
+```
 
 ### Product
 
-- `id`: ObjectId (Primary Key)
-- `title`: String
-- `description`: String
-- `price`: Float
-- `category`: String
-- `imageUrl`: String
-- `createdAt`: DateTime
-- `updatedAt`: DateTime
+```prisma
+model Product {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  title       String
+  description String
+  price       Float
+  category    String
+  imageUrl    String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  cartItems   CartItem[]
+  orderItems  OrderItem[]
+}
+```
 
-### Cart
+### Cart & CartItem
 
-- `id`: ObjectId (Primary Key)
-- `userId`: ObjectId (Foreign Key, Unique)
-- `createdAt`: DateTime
-- `updatedAt`: DateTime
+```prisma
+model Cart {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId    String   @unique @db.ObjectId
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  items     CartItem[]
+}
 
-### CartItem
+model CartItem {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  cartId    String  @db.ObjectId
+  productId String  @db.ObjectId
+  quantity  Int
+  cart      Cart    @relation(fields: [cartId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+  @@unique([cartId, productId])
+}
+```
 
-- `id`: ObjectId (Primary Key)
-- `cartId`: ObjectId (Foreign Key)
-- `productId`: ObjectId (Foreign Key)
-- `quantity`: Integer
-- Unique constraint on (cartId, productId)
+### Order & OrderItem
 
-### Order
+```prisma
+model Order {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId     String   @db.ObjectId
+  totalPrice Float
+  status     String   @default("pending")
+  createdAt  DateTime @default(now())
+  user       User     @relation(fields: [userId], references: [id])
+  items      OrderItem[]
+}
 
-- `id`: ObjectId (Primary Key)
-- `userId`: ObjectId (Foreign Key)
-- `totalPrice`: Float
-- `status`: String (default: "pending")
-- `createdAt`: DateTime
+model OrderItem {
+  id           String  @id @default(auto()) @map("_id") @db.ObjectId
+  orderId      String  @db.ObjectId
+  productId    String  @db.ObjectId
+  productTitle String  # Snapshot for historical data
+  productPrice Float   # Snapshot for historical data
+  quantity     Int
+  order        Order   @relation(fields: [orderId], references: [id])
+  product      Product @relation(fields: [productId], references: [id])
+}
+```
 
-### OrderItem
+## 🧪 Testing
 
-- `id`: ObjectId (Primary Key)
-- `orderId`: ObjectId (Foreign Key)
-- `productId`: ObjectId (Foreign Key)
-- `productTitle`: String (snapshot)
-- `productPrice`: Float (snapshot)
-- `quantity`: Integer
-
-## Running Tests
+Run the test suite:
 
 ```bash
 # Install test dependencies
@@ -367,139 +326,111 @@ pip install pytest pytest-asyncio httpx
 # Run all tests
 pytest
 
-# Run specific test file
-pytest tests/test_auth.py
-
 # Run with coverage
 pytest --cov=src tests/
+
+# Run specific test file
+pytest tests/test_auth.py -v
 ```
 
-## Error Handling
+**Quick API Test:**
 
-The API returns consistent error responses:
-
-```json
-{
-  "detail": "Error message",
-  "status_code": 400
-}
+```bash
+python quick_test.py
 ```
 
-### HTTP Status Codes
+**Complete Test Suite:**
 
-- `200`: Success
-- `201`: Created
-- `204`: No Content
-- `400`: Bad Request
-- `401`: Unauthorized
-- `403`: Forbidden
-- `404`: Not Found
-- `422`: Validation Error
-- `500`: Internal Server Error
+```bash
+python complete_api_test.py
+```
 
-## Security Features
+## 🔒 Security Features
 
-- Password hashing with bcrypt
-- JWT token-based authentication
-- Protected endpoints with bearer token
-- Input validation with Pydantic
-- CORS middleware configuration
-- Environment-based configuration
+- ✅ **Password Hashing** - bcrypt with salt
+- ✅ **JWT Authentication** - Secure token-based auth
+- ✅ **Input Validation** - Pydantic schemas
+- ✅ **CORS Configuration** - Configurable origins
+- ✅ **Error Handling** - Consistent error responses
+- ✅ **Environment Variables** - Sensitive data protection
 
-## Development
+## 🚀 Deployment
 
-### Code Style
+### Docker Deployment
 
-The project follows clean architecture principles:
+```dockerfile
+FROM python:3.9-slim
 
-- **API Layer**: Route handlers
-- **Service Layer**: Business logic
-- **Repository Layer**: Data access
-- **Schema Layer**: Request/response validation
+WORKDIR /app
 
-### Adding New Features
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-1. Define Prisma model in `prisma/schema.prisma`
-2. Create Pydantic schemas in `src/schemas/`
-3. Implement repository in `src/repositories/`
-4. Implement service in `src/services/`
-5. Create API endpoints in `src/api/v1/`
-6. Write tests in `tests/`
+COPY . .
 
-## Deployment
+RUN python -m prisma generate
+
+CMD ["uvicorn", "src.main:app", "--host", "0.0.0.0", "--port", "8000"]
+```
 
 ### Production Checklist
 
-- [ ] Set `DEBUG=False` in production
+- [ ] Set `DEBUG=False`
 - [ ] Use strong `SECRET_KEY`
 - [ ] Configure proper CORS origins
-- [ ] Set up MongoDB Atlas with proper security
-- [ ] Enable MongoDB connection pooling
+- [ ] Set up MongoDB Atlas with security
+- [ ] Enable HTTPS
 - [ ] Set up logging and monitoring
-- [ ] Use environment variables for sensitive data
-- [ ] Run `prisma generate` before deployment
+- [ ] Configure rate limiting
+- [ ] Set up backup strategy
 
-### Deployment Platforms
+## 📈 Performance Optimization
 
-- **Heroku**: Use Procfile with `web: uvicorn src.main:app --host 0.0.0.0 --port $PORT`
-- **AWS/GCP/Azure**: Deploy with Docker or serverless functions
-- **Railway/Render**: Direct deployment from GitHub
+### Current Optimizations
 
-## Contributing
+- Async/await for non-blocking I/O
+- Database connection pooling (Prisma)
+- Pagination for large datasets
+- Indexed database fields
+
+### Future Improvements
+
+- Redis caching for frequently accessed data
+- CDN for static assets
+- Database query optimization
+- Load balancing for horizontal scaling
+
+## 🤝 Contributing
+
+Contributions are welcome! Please follow these steps:
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Write tests
-5. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-## License
+## 📝 License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Contact
+## 👨‍💻 Author
 
-For questions or support, please contact: [your-email@example.com]
+**Aryan Kumar**
 
-## Acknowledgments
+- GitHub: [@aryacreations](https://github.com/aryacreations)
 
-- FastAPI for the excellent web framework
-- Prisma for the modern ORM
-- MongoDB for the flexible databa
+## 🙏 Acknowledgments
 
-## Fro
+- [FastAPI](https://fastapi.tiangolo.com/) - Modern web framework
+- [Prisma](https://www.prisma.io/) - Next-generation ORM
+- [MongoDB](https://www.mongodb.com/) - NoSQL database
+- [Pydantic](https://pydantic-docs.helpmanual.io/) - Data validation
 
-ntend
+## 📞 Support
 
-A simple Streamlit-based frontend is included in the `frontend/` directory.
+For questions or support, please open an issue on GitHub.
 
-### Running the Frontend
+---
 
-1. Install frontend dependencies:
-
-   ```bash
-   cd frontend
-   pip install -r requirements.txt
-   ```
-
-2. Make sure the backend is running:
-
-   ```bash
-   uvicorn src.main:app --reload
-   ```
-
-3. Run the Streamlit app:
-
-   ```bash
-   streamlit run app.py
-   ```
-
-4. Access at `http://localhost:8501`
-
-### Frontend Features
-
-- User registration and login
-- Product browsing with search, filter, and sort
-- Shopping cart management
-- Order placement and history
-- Product management (add new products)
+**⭐ If you find this project helpful, please give it a star!**

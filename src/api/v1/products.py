@@ -45,7 +45,7 @@ async def get_products(
     page_size: int = Query(20, ge=1, le=100),
     search: Optional[str] = Query(None),
     category: Optional[str] = Query(None),
-    sort: Optional[str] = Query(None, regex="^(price_asc|price_desc)$")
+    sort: Optional[str] = Query(None, pattern="^(price_asc|price_desc)$")
 ):
     """Get all products with pagination, search, filter, and sort."""
     skip = (page - 1) * page_size
