@@ -83,12 +83,14 @@ e-commerce-backend/
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/aryacreations/e-commerce-backend.git
    cd e-commerce-backend
    ```
 
 2. **Create and activate virtual environment**
+
    ```bash
    # Windows
    python -m venv venv
@@ -100,13 +102,15 @@ e-commerce-backend/
    ```
 
 3. **Install dependencies**
+
    ```bash
    pip install -r requirements.txt
    ```
 
 4. **Configure environment variables**
-   
+
    Copy `.env.example` to `.env` and update with your values:
+
    ```env
    APP_NAME=E-Commerce Backend
    DEBUG=True
@@ -119,6 +123,7 @@ e-commerce-backend/
    ```
 
 5. **Generate Prisma client**
+
    ```bash
    prisma generate
    ```
@@ -142,22 +147,23 @@ The API will be available at `http://localhost:8000`
 
 ## Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `APP_NAME` | Application name | E-Commerce Backend |
-| `DEBUG` | Debug mode | True |
-| `DATABASE_URL` | MongoDB connection string | Required |
-| `SECRET_KEY` | JWT secret key | Required |
-| `ALGORITHM` | JWT algorithm | HS256 |
-| `ACCESS_TOKEN_EXPIRE_MINUTES` | Token expiration time | 30 |
-| `DEFAULT_PAGE_SIZE` | Default pagination size | 20 |
-| `MAX_PAGE_SIZE` | Maximum pagination size | 100 |
+| Variable                      | Description               | Default            |
+| ----------------------------- | ------------------------- | ------------------ |
+| `APP_NAME`                    | Application name          | E-Commerce Backend |
+| `DEBUG`                       | Debug mode                | True               |
+| `DATABASE_URL`                | MongoDB connection string | Required           |
+| `SECRET_KEY`                  | JWT secret key            | Required           |
+| `ALGORITHM`                   | JWT algorithm             | HS256              |
+| `ACCESS_TOKEN_EXPIRE_MINUTES` | Token expiration time     | 30                 |
+| `DEFAULT_PAGE_SIZE`           | Default pagination size   | 20                 |
+| `MAX_PAGE_SIZE`               | Maximum pagination size   | 100                |
 
 ## API Documentation
 
 ### Authentication Endpoints
 
 #### Register User
+
 ```http
 POST /api/v1/auth/register
 Content-Type: application/json
@@ -169,6 +175,7 @@ Content-Type: application/json
 ```
 
 #### Login
+
 ```http
 POST /api/v1/auth/login
 Content-Type: application/json
@@ -188,6 +195,7 @@ Response:
 ### Product Endpoints
 
 #### Create Product (Protected)
+
 ```http
 POST /api/v1/products
 Authorization: Bearer <token>
@@ -203,16 +211,19 @@ Content-Type: application/json
 ```
 
 #### Get All Products
+
 ```http
 GET /api/v1/products?page=1&page_size=20&search=laptop&category=Electronics&sort=price_asc
 ```
 
 #### Get Single Product
+
 ```http
 GET /api/v1/products/{product_id}
 ```
 
 #### Update Product (Protected)
+
 ```http
 PUT /api/v1/products/{product_id}
 Authorization: Bearer <token>
@@ -225,6 +236,7 @@ Content-Type: application/json
 ```
 
 #### Delete Product (Protected)
+
 ```http
 DELETE /api/v1/products/{product_id}
 Authorization: Bearer <token>
@@ -233,6 +245,7 @@ Authorization: Bearer <token>
 ### Cart Endpoints
 
 #### Add to Cart (Protected)
+
 ```http
 POST /api/v1/cart/items
 Authorization: Bearer <token>
@@ -245,12 +258,14 @@ Content-Type: application/json
 ```
 
 #### Get Cart (Protected)
+
 ```http
 GET /api/v1/cart
 Authorization: Bearer <token>
 ```
 
 #### Update Cart Item (Protected)
+
 ```http
 PUT /api/v1/cart/items/{item_id}
 Authorization: Bearer <token>
@@ -262,6 +277,7 @@ Content-Type: application/json
 ```
 
 #### Remove from Cart (Protected)
+
 ```http
 DELETE /api/v1/cart/items/{item_id}
 Authorization: Bearer <token>
@@ -270,18 +286,21 @@ Authorization: Bearer <token>
 ### Order Endpoints
 
 #### Create Order (Protected)
+
 ```http
 POST /api/v1/orders
 Authorization: Bearer <token>
 ```
 
 #### Get Order History (Protected)
+
 ```http
 GET /api/v1/orders
 Authorization: Bearer <token>
 ```
 
 #### Get Specific Order (Protected)
+
 ```http
 GET /api/v1/orders/{order_id}
 Authorization: Bearer <token>
@@ -290,12 +309,14 @@ Authorization: Bearer <token>
 ## Database Schema
 
 ### User
+
 - `id`: ObjectId (Primary Key)
 - `email`: String (Unique)
 - `hashedPassword`: String
 - `createdAt`: DateTime
 
 ### Product
+
 - `id`: ObjectId (Primary Key)
 - `title`: String
 - `description`: String
@@ -306,12 +327,14 @@ Authorization: Bearer <token>
 - `updatedAt`: DateTime
 
 ### Cart
+
 - `id`: ObjectId (Primary Key)
 - `userId`: ObjectId (Foreign Key, Unique)
 - `createdAt`: DateTime
 - `updatedAt`: DateTime
 
 ### CartItem
+
 - `id`: ObjectId (Primary Key)
 - `cartId`: ObjectId (Foreign Key)
 - `productId`: ObjectId (Foreign Key)
@@ -319,6 +342,7 @@ Authorization: Bearer <token>
 - Unique constraint on (cartId, productId)
 
 ### Order
+
 - `id`: ObjectId (Primary Key)
 - `userId`: ObjectId (Foreign Key)
 - `totalPrice`: Float
@@ -326,6 +350,7 @@ Authorization: Bearer <token>
 - `createdAt`: DateTime
 
 ### OrderItem
+
 - `id`: ObjectId (Primary Key)
 - `orderId`: ObjectId (Foreign Key)
 - `productId`: ObjectId (Foreign Key)
@@ -386,6 +411,7 @@ The API returns consistent error responses:
 ### Code Style
 
 The project follows clean architecture principles:
+
 - **API Layer**: Route handlers
 - **Service Layer**: Business logic
 - **Repository Layer**: Data access
@@ -440,3 +466,40 @@ For questions or support, please contact: [your-email@example.com]
 - FastAPI for the excellent web framework
 - Prisma for the modern ORM
 - MongoDB for the flexible databa
+
+## Fro
+
+ntend
+
+A simple Streamlit-based frontend is included in the `frontend/` directory.
+
+### Running the Frontend
+
+1. Install frontend dependencies:
+
+   ```bash
+   cd frontend
+   pip install -r requirements.txt
+   ```
+
+2. Make sure the backend is running:
+
+   ```bash
+   uvicorn src.main:app --reload
+   ```
+
+3. Run the Streamlit app:
+
+   ```bash
+   streamlit run app.py
+   ```
+
+4. Access at `http://localhost:8501`
+
+### Frontend Features
+
+- User registration and login
+- Product browsing with search, filter, and sort
+- Shopping cart management
+- Order placement and history
+- Product management (add new products)
