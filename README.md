@@ -7,6 +7,8 @@
 
 A production-ready, scalable RESTful API for an e-commerce platform built with modern Python technologies. Features include user authentication, product management, shopping cart, and order processing with clean architecture principles.
 
+> **🎥 [Watch the Complete Project Walkthrough & Architecture Explanation Video Here](https://drive.google.com/file/d/1P6nBGOd6Ij5OpGuf9awgQ9ZWZAvq_qyT/view?usp=sharing)**
+
 ## 🌟 Key Features
 
 - **🔐 JWT Authentication** - Secure user registration and login with bcrypt password hashing
